@@ -1,8 +1,9 @@
 local import = {}
 import.list = {"importLua", "importTxt", "importJson"}
+import.path = "map/map"
 
 function import.txt()
-  local filename = "map/map.txt"
+  local filename = export.path..".txt"
   if filename ~= nil then
     grid.map = {}
     for line in io.lines(filename) do
@@ -30,7 +31,7 @@ function import.txt()
 end
 
 function import.lua()
-  local filename = "map/map.lua"
+  local filename = export.path..".lua"
   if filename ~= nil then
     grid.map = {}
     for line in io.lines(filename) do 
@@ -62,7 +63,7 @@ function import.lua()
 end
 
 function import.json()
-  local filename = "map/map.json"
+  local filename = export.path..".json"
   if filename ~= nil then
     grid.map = {}
     for line in io.lines(filename) do 

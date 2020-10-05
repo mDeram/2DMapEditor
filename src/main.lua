@@ -15,7 +15,8 @@ window = {}
 window.width = 1200
 window.height = 700
 Font = love.graphics.newFont(16)
-  
+
+data = require("data")
 camera = require("camera")
 action = require("action")
 tool = require("tool")
@@ -33,6 +34,7 @@ function love.load()
   
   love.window.setMode(1200, 700)
   
+  data.load()
   grid.load()
   
   window.grid = {}

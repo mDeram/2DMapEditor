@@ -91,9 +91,6 @@ function hud.drawTile(pX, pY, spacing, pTileWidth)
   local nbColumn = math.floor((width)/(pTileWidth+spacing))
   local paddingX = window.width-hud.rightBar.width+pX + (width-nbColumn*(pTileWidth+spacing))/2
   local nbLine = math.floor(((pTileWidth+spacing)*#grid.tileTexture)/width) + 1
-  if ((pTileWidth+spacing)*#grid.tileTexture)/width+1 ~= nbLine then
-    nbLine = nbLine + 1
-  end
   love.graphics.setColor(255, 255, 255)
   local l
   for l = 1, nbLine do

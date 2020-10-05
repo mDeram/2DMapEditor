@@ -1,15 +1,16 @@
 local grid = {}
 grid.map = {}
-grid.width = 18
-grid.height = 10
-grid.tileWidth = 48
-grid.tileHeight = 48
+grid.width = 50
+grid.height = 50
+grid.tileWidth = 32
+grid.tileHeight = 32
 grid.tileTexture = {}
+grid.tileSheetPath = "tilesheet/tilesheet2.png"
 
 
 function grid.load()
   
-  grid.tileSheet = love.graphics.newImage("graph/tilesheet/tiles.png")
+  grid.tileSheet = love.graphics.newImage(grid.tileSheetPath)
   
   local id = 1
   local nbColumn = grid.tileSheet:getWidth() / grid.tileWidth

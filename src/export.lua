@@ -1,8 +1,9 @@
 local export = {}
 export.list = {"exportLua", "exportTxt", "exportJson"}
+export.path = "map/map"
 
 function export.txt()
-  Folder = io.open("map/map.txt", "w+")
+  Folder = io.open(export.path..".txt", "w+")
   io.input(Folder)
     local i
     for i = 1, #grid.map-1 do
@@ -13,7 +14,7 @@ function export.txt()
 end
 
 function export.lua()
-  Folder = io.open("map/map.lua", "w+")
+  Folder = io.open(export.path..".lua", "w+")
   io.input(Folder)
     Folder:write("{\n")
     local i
@@ -25,7 +26,7 @@ function export.lua()
 end
 
 function export.json()
-  Folder = io.open("map/map.json", "w+")
+  Folder = io.open(export.path..".json", "w+")
   io.input(Folder)
     Folder:write("{\n\"map\" : [["..tostring(table.concat(grid.map[1], ", ")).."],\n")
     local i
