@@ -74,7 +74,7 @@ end
 
 function love.draw()
   
-  love.graphics.setBackgroundColor(50, 50, 50)
+  love.graphics.setBackgroundColor(50/255, 50/255, 50/255)
   
   camera:set()
     grid.draw()

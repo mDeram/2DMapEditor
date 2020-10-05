@@ -48,7 +48,7 @@ end
 
 
 function grid.draw()
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1, 1)
   local l
   for l = 1, grid.height do
     local c
@@ -61,7 +61,7 @@ function grid.draw()
     end
   end
   
-  love.graphics.setColor(180, 180, 180, 100)
+  love.graphics.setColor(180/255, 180/255, 18/2550, 100/255)
   if action.grid.value == true then
     local i
     for i = 1, grid.height+1 do

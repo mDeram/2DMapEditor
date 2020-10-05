@@ -1,7 +1,7 @@
 local tool = {}
 tool.current = "camera"
 tool.list = {"select", "pen", "erase", "fill", "tilePicker", "camera"}
-tool.shortcut = {"s", "d", "e", "f", "lalt", " "}
+tool.shortcut = {"s", "d", "e", "f", "lalt", "space"}
 tool.select = {}
 tool.pen = {}
 tool.erase = {}
