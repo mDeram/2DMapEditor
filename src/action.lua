@@ -77,6 +77,7 @@ function action.arrow.f()
   elseif love.keyboard.isDown("up") then
     camera:scale(0.975, 0.975)
   end
+  --ctrl + pour zoomer, ou mouse scroll
   if love.keyboard.isDown("left") and not love.keyboard.isDown("right") then
     camera:move(-10*camera.scaleX, 0)
   elseif love.keyboard.isDown("right") and not love.keyboard.isDown("left") then
@@ -169,7 +170,7 @@ function action.ctrlZ.f()
 end
 
 function action.grid.f()
-  love.graphics.setColor(180, 180, 180, 100)
+  love.graphics.setColor(180/255, 180/255, 180/255, 100/255)
   if action.grid.state == true then
     local i
     for i = 1, grid.height+1 do
@@ -182,7 +183,7 @@ function action.grid.f()
   else
     love.graphics.line(0, 0, grid.width*grid.tileWidth, 0)
     love.graphics.line(0, grid.height*grid.tileHeight, grid.width*grid.tileWidth,grid.height*grid.tileHeight)
-    love.graphics.line( 0, 0, 0, grid.height*grid.tileHeight)
+    love.graphics.line(0, 0, 0, grid.height*grid.tileHeight)
     love.graphics.line(grid.width*grid.tileWidth, 0, grid.width*grid.tileWidth, grid.height*grid.tileHeight)
   end
 end

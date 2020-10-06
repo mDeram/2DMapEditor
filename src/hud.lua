@@ -39,7 +39,7 @@ end
 
 
 
-function hud.drawButtonRightBar(pX, pY, spacing, height, name)
+function hud.drawButtonLeftBar(pX, pY, spacing, height, name)
   love.graphics.setColor(1, 1, 1)
   local i
   for i = 1, #name do

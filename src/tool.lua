@@ -1,7 +1,7 @@
 local tool = {}
 tool.current = "camera"
-tool.list = {"select", "pen", "erase", "fill", "tilePicker", "camera"}
-tool.shortcut = {"s", "d", "e", "f", "lalt", "space"}
+tool.list     = {"pen", "erase", "fill", "tilePicker", "camera"}
+tool.shortcut = {"d",   "e",     "f",    "lalt",       "space"}
 tool.select = {}
 tool.pen = {}
 tool.erase = {}
@@ -29,20 +29,11 @@ function tool.update()
     end
   end
   
-  if love.keyboard.isDown(tool.shortcut[1]) then
-    tool.current = tool.list[1]
-  elseif love.keyboard.isDown(tool.shortcut[2]) then
-    tool.current = tool.list[2]
-  elseif love.keyboard.isDown(tool.shortcut[3]) then
-    tool.current = tool.list[3]
-  elseif love.keyboard.isDown(tool.shortcut[4]) then
-    tool.current = tool.list[4]
-  elseif love.keyboard.isDown(tool.shortcut[5]) then
-    tool.current = tool.list[5]
-  elseif love.keyboard.isDown(tool.shortcut[6]) then
-    tool.current = tool.list[6]
+  for i = 1, #tool.shortcut do
+    if love.keyboard.isDown(tool.shortcut[i]) then
+      tool.current = tool.list[i]
+    end
   end
-  
   
   if love.mouse.isDown(mouseTouch2) then -- Color picker
     local value = grid.map[mouse.l][mouse.c]
@@ -58,29 +49,9 @@ function tool.update()
     end
   end
   
-  
   if mouse.zone == "grid" then
-    if tool.current == "select" then
-      tool.select.f()
-    elseif tool.current == "pen" then
-      tool.pen.f()
-    elseif tool.current == "erase" then
-      tool.erase.f()
-    elseif tool.current == "fill" then
-      tool.fill.f()
-    elseif tool.current == "tileSwapper" then
-      tool.tileSwapper.f()
-    elseif tool.current == "tilePicker" then
-      tool.tilePicker.f()
-    elseif tool.current == "camera" then
-      tool.camera.f()
-    end
+    tool[tool.current].f()
   end
-end
-
-
-function tool.select.f()
-  --c+v+x+a
 end
 
 function tool.pen.f()
