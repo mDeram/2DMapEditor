@@ -2,7 +2,8 @@ local action = {}
 action.list = {"grid", "resetPos"}
 action.importantList = {"resetMap"}
 
-action.arrow = {}
+action.move = {}
+action.zoom = {}
 
 action.grid = {}
 action.grid.state = true
@@ -19,7 +20,8 @@ action.ctrlZ.limit = 200
 action.ctrlZ.save = {}
 
 function action.update(dt)
-  action.arrow.f()
+  action.move.f()
+  action.zoom.f()
   action.ctrlZ.f()
 end
 
@@ -71,17 +73,38 @@ function action.resetPos.f()
   camera:setPosition(-x, y)
 end
 
-function action.arrow.f()
-  if love.keyboard.isDown("down") then
-    camera:scale(1.025, 1.025)
-  elseif love.keyboard.isDown("up") then
-    camera:scale(0.975, 0.975)
+function action.zoom.f()
+  if love.keyboard.isDown("lctrl") and (love.keyboard.isDown("=")
+                                     or love.keyboard.isDown("+")) then
+    action.zoom.wheelmoved(1)
   end
-  --ctrl + pour zoomer, ou mouse scroll
-  if love.keyboard.isDown("left") and not love.keyboard.isDown("right") then
-    camera:move(-10*camera.scaleX, 0)
-  elseif love.keyboard.isDown("right") and not love.keyboard.isDown("left") then
-    camera:move(10*camera.scaleX, 0)
+  if love.keyboard.isDown("lctrl") and love.keyboard.isDown("-")then
+    action.zoom.wheelmoved(-1)
+  end
+end
+
+function action.zoom.wheelmoved(y)
+  local zoomSize = 0.14
+  if y < 0 then
+    camera:scale(1 + zoomSize, 1 + zoomSize)
+  elseif y > 0 then
+    camera:scale(1 - zoomSize, 1 - zoomSize)
+  end
+end
+
+function action.move.f()
+  local moveSpeed = 10
+  if love.keyboard.isDown("left") then
+    camera:move(-moveSpeed*camera.scaleX, 0)
+  end
+  if love.keyboard.isDown("right") then
+    camera:move(moveSpeed*camera.scaleX, 0)
+  end
+  if love.keyboard.isDown("up") then
+    camera:move(0, -moveSpeed*camera.scaleY)
+  end
+  if love.keyboard.isDown("down") then
+    camera:move(0, moveSpeed*camera.scaleY)
   end
 end
 

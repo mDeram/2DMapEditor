@@ -8,7 +8,6 @@ input.l.y = 0
 input.l.width = 30
 input.l.height = 30
 
-
 function input.mousepressed(touch)
   if mouse.collide(input.l.x, input.l.y, input.l.width, input.l.height) then
     input.l.focus = true
@@ -17,6 +16,7 @@ function input.mousepressed(touch)
     input.l.focus = false
   end
 end
+
 function input.textinput(t)
   if input.l.focus == true then
     if string.len(input.l.value) < 4 and tonumber(t) ~= nil then

@@ -62,6 +62,10 @@ function love.keypressed(key)
   input.keypressed(key)
 end
 
+function love.wheelmoved(x, y)
+  action.zoom.wheelmoved(y)
+end
+
 function love.update(dt)
   
   mouse.update()
