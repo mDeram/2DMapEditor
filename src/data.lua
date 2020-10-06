@@ -1,7 +1,7 @@
 local data = {}
 
 local function formatString(str)
-  return string.sub(str, 1, -2)
+  return string.gsub(string.gsub(str, "\r", ""), "\n", "")
 end
 
 function data.load()
@@ -12,7 +12,7 @@ function data.load()
     for line in io.lines(filename) do
       i = i+1
       contentFile[i] = formatString(line)
-      print(line)
+      print(line, contentFile[i])
     end
   end
   grid.width = tonumber(contentFile[2])
