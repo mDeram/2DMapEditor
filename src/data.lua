@@ -1,5 +1,9 @@
 local data = {}
 
+local function formatString(str)
+  return string.sub(str, 1, -2)
+end
+
 function data.load()
   local filename = "map/data.txt"
   local contentFile = {}
@@ -7,7 +11,8 @@ function data.load()
   if filename ~= nil then
     for line in io.lines(filename) do
       i = i+1
-      contentFile[i] = line
+      contentFile[i] = formatString(line)
+      print(line)
     end
   end
   grid.width = tonumber(contentFile[2])
