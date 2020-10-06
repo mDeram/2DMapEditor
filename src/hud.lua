@@ -15,7 +15,7 @@ hud.topBar.height = 40
 
 
 function hud.leftBar.draw()
-  love.graphics.setColor(85, 85, 85)
+  love.graphics.setColor(85/255, 85/255, 85/255)
   love.graphics.rectangle("fill", 0, 0, hud.leftBar.width, hud.leftBar.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.rectangle("fill", hud.leftBar.width-1, 0, 1, hud.leftBar.height)
@@ -23,7 +23,7 @@ end
 
 
 function hud.rightBar.draw()
-  love.graphics.setColor(85, 85, 85)
+  love.graphics.setColor(85/255, 85/255, 85/255)
   love.graphics.rectangle("fill", window.width-hud.rightBar.width, 0, hud.rightBar.width, hud.rightBar.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.rectangle("fill", window.width-hud.rightBar.width, 0, 1, hud.rightBar.height)
@@ -31,7 +31,7 @@ end
 
 
 function hud.topBar.draw()
-  love.graphics.setColor(85, 85, 85)
+  love.graphics.setColor(85/255, 85/255, 85/255)
   love.graphics.rectangle("fill", 0, 0, hud.topBar.width, hud.topBar.height)
   love.graphics.setColor(0, 0, 0)
   love.graphics.rectangle("fill", 0, hud.topBar.height-1, hud.topBar.width, 1)
@@ -40,7 +40,7 @@ end
 
 
 function hud.drawButtonRightBar(pX, pY, spacing, height, name)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   local i
   for i = 1, #name do
     local y = pY+(i-1)*spacing+(i-1)*height
@@ -63,7 +63,7 @@ end
 
 
 function hud.drawButtonTopBar(pX, pY, spacing, width, name, title)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   if title ~= nil then
     love.graphics.setFont(Font)
     love.graphics.print(title, pX-Font:getWidth(title)-10, Font:getHeight(title)/2)
@@ -91,7 +91,7 @@ function hud.drawTile(pX, pY, spacing, pTileWidth)
   local nbColumn = math.floor((width)/(pTileWidth+spacing))
   local paddingX = window.width-hud.rightBar.width+pX + (width-nbColumn*(pTileWidth+spacing))/2
   local nbLine = math.floor(((pTileWidth+spacing)*#grid.tileTexture)/width) + 1
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   local l
   for l = 1, nbLine do
     local c
@@ -100,9 +100,9 @@ function hud.drawTile(pX, pY, spacing, pTileWidth)
         local x = paddingX+(c-1)*(pTileWidth+spacing)
         local y = pY+(l-1)*(pTileWidth+spacing)
         if mouse.currentColor == (nbColumn*(l-1))+c then
-          love.graphics.setColor(50, 50, 50)
+          love.graphics.setColor(50/255, 50/255, 50/255)
           love.graphics.rectangle("fill", x-1, y-1, pTileWidth+2, pTileWidth+2)
-          love.graphics.setColor(255, 255, 255)
+          love.graphics.setColor(1, 1, 1)
         end
         love.graphics.draw(grid.tileSheet, grid.tileTexture[(nbColumn*(l-1))+c], x, y, 0, rapport, rapport)
       end

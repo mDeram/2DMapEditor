@@ -5,7 +5,7 @@
 - TileSheet path =
 tilesheet
 - TileSheet name =
-tilesheet2.png
+tiles2.png
 - Map path
 map
 - Map name
