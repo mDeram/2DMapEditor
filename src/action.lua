@@ -128,34 +128,40 @@ function action.ctrlZ.f()
     end
     if result then
       action.ctrlZ.save[#action.ctrlZ.save+1] = {}
+      local save = action.ctrlZ.save[#action.ctrlZ.save]
+      save.height = grid.height
+      save.width = grid.width
       local l
       for l = 1, grid.height do
-        action.ctrlZ.save[#action.ctrlZ.save][l] = {}
+        save[l] = {}
         local c
         for c = 1, grid.width do
-          action.ctrlZ.save[#action.ctrlZ.save][l][c] = grid.map[l][c] 
+          save[l][c] = grid.map[l][c] 
         end
       end
     end
   else
     action.ctrlZ.save[1] = {}
+    local save = action.ctrlZ.save[1]
+    save.height = grid.height
+    save.width = grid.width
     local l
     for l = 1, grid.height do
-      action.ctrlZ.save[1][l] = {}
+      save[l] = {}
       local c
       for c = 1, grid.width do
-        action.ctrlZ.save[1][l][c] = grid.map[l][c] 
+        save[l][c] = grid.map[l][c] 
       end
     end
   end
-  if love.keyboard.isDown("lctrl") then
+  
+  --check if ctrl is pressed before z
+  if (love.keyboard.isDown("lctrl") and not love.keyboard.isDown("z")) or (love.keyboard.isDown("lctrl") and action.ctrlZ.ctrlPressedBeforeZ) then
+    action.ctrlZ.ctrlPressedBeforeZ = true
     action.ctrlZ.touch1 = true
-    if love.keyboard.isDown("z") then
-      action.ctrlZ.touch2 = true
-    else
-      action.ctrlZ.touch2 = false
-    end
+    action.ctrlZ.touch2 = love.keyboard.isDown("z")
   else
+    action.ctrlZ.ctrlPressedBeforeZ = false
     action.ctrlZ.touch1 = false
     action.ctrlZ.touch2 = false
   end
@@ -164,20 +170,23 @@ function action.ctrlZ.f()
     if action.ctrlZ.timer == 0 then
       if #action.ctrlZ.save > 1 then
         table.remove(action.ctrlZ.save, #action.ctrlZ.save)
+        local save = action.ctrlZ.save[#action.ctrlZ.save]
+        grid.height = save.height
+        grid.width = save.width
         local l
-        for l = 1, grid.height do
+        for l = 1, grid.height do --TOFIX for limit must be a number
           local c
           for c = 1, grid.width do
-            grid.map[l][c] = action.ctrlZ.save[#action.ctrlZ.save][l][c]
+            grid.map[l][c] = save[l][c]
           end
         end
       end
     end
-    if action.ctrlZ.timer >= 50 then
+    if action.ctrlZ.timer >= 30 then
       action.ctrlZ.timer = 0
       action.ctrlZ.hasUsed = true
     else
-      if action.ctrlZ.timer >= 5 and action.ctrlZ.hasUsed == true then
+      if action.ctrlZ.timer >= 4 and action.ctrlZ.hasUsed == true then
         action.ctrlZ.timer = 0
       else
         action.ctrlZ.timer = action.ctrlZ.timer+1
@@ -195,11 +204,9 @@ end
 function action.grid.f()
   love.graphics.setColor(180/255, 180/255, 180/255, 100/255)
   if action.grid.state == true then
-    local i
     for i = 1, grid.height+1 do
       love.graphics.line(0, (i-1)*grid.tileHeight, grid.width*grid.tileWidth,(i-1)*grid.tileHeight)
     end
-    local i
     for i = 1, grid.width+1 do
       love.graphics.line((i-1)*grid.tileWidth, 0, (i-1)*grid.tileWidth, grid.height*grid.tileHeight)
     end
