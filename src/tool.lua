@@ -1,4 +1,5 @@
 local tool = {}
+tool.last = "camera"
 tool.current = "camera"
 tool.list     = {"pen", "erase", "fill", "tilePicker", "camera"}
 tool.shortcut = {"d",   "e",     "f",    "lalt",       "space"}
@@ -9,6 +10,7 @@ tool.fill = {}
 tool.tileSwapper = {}
 tool.tilePicker = {}
 tool.camera = {}
+tool.camera.shortcutWasDown = false
 
 function tool.update()
   
@@ -31,6 +33,9 @@ function tool.update()
   
   for i = 1, #tool.shortcut do
     if love.keyboard.isDown(tool.shortcut[i]) then
+      if tool.current ~= tool.list[i] then
+        tool.last = tool.current
+      end
       tool.current = tool.list[i]
     end
   end
@@ -169,6 +174,12 @@ function tool.camera.f()
     end
   else
     tool.camera.state = false
+  end
+  if love.keyboard.isDown(tool.shortcut[5]) then
+    tool.camera.shortcutWasDown = true
+  elseif tool.camera.shortcutWasDown then
+    tool.current = tool.last
+    tool.camera.shortcutWasDown = false
   end
 end
 
