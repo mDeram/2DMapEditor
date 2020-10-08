@@ -36,6 +36,7 @@ function love.load()
   
   data.load()
   grid.load()
+  input.load()
   
   window.grid = {}
   window.grid.width = window.width-hud.leftBar.width-hud.rightBar.width
@@ -92,8 +93,8 @@ function love.draw()
   hud.drawButtonLeftBar(5, 50, 10, 30, tool.list)
   hud.drawButtonLeftBar(5, 400, 10, 30, action.list)
   hud.drawButtonLeftBar(5, 650, 10, 30, action.importantList)
-  hud.drawButtonTopBar(300, 5, 10, 30, export.list, "Export")
-  hud.drawButtonTopBar(550, 5, 10, 30, import.list, "Import")
+  hud.drawButtonTopBar(450, 5, 10, 30, export.list, "Export")
+  hud.drawButtonTopBar(700, 5, 10, 30, import.list, "Import")
   hud.drawTile(10, 100, 1, 48)
   input.draw()
   
