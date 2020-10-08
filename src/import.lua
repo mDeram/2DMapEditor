@@ -1,6 +1,7 @@
 local import = {}
 import.list = {"importLua", "importTxt", "importJson"}
-import.path = "map/map"
+import.baseDirectory = love.filesystem.getSourceBaseDirectory()
+import.path = import.baseDirectory.."/map/map"
 
 function import.txt()
   local filename = export.path..".txt"
@@ -102,7 +103,7 @@ end
 function import.mousepressed(touch)
   if mouse.zone == "topBar" then
     local spacing = 10
-    local pX = 550
+    local pX = 700
     local pY = 5
     local width = 30
     local i

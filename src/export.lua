@@ -1,6 +1,7 @@
 local export = {}
 export.list = {"exportLua", "exportTxt", "exportJson"}
-export.path = "map/map"
+export.baseDirectory = love.filesystem.getSourceBaseDirectory()
+export.path = export.baseDirectory.."/map/map"
 
 function export.txt()
   Folder = io.open(export.path..".txt", "w+")
@@ -16,7 +17,7 @@ end
 function export.lua()
   Folder = io.open(export.path..".lua", "w+")
   io.input(Folder)
-    Folder:write("{\n")
+    Folder:write("local map = {\n")
     local i
     for i = 1, #grid.map-1 do
       Folder:write("  {"..tostring(table.concat(grid.map[i], ", ")).."},\n")
@@ -41,7 +42,7 @@ end
 function export.mousepressed(touch)
   if mouse.zone == "topBar" then
     local spacing = 10
-    local pX = 300
+    local pX = 450
     local pY = 5
     local width = 30
     local i

@@ -5,7 +5,7 @@ grid.height = 50
 grid.tileWidth = 32
 grid.tileHeight = 32
 grid.tileTexture = {}
-grid.tileSheetPath = "tilesheet/tilesheet2.png"
+grid.tileSheetPath = "tilesheet/tilesheet.png"
 
 
 function grid.load()
