@@ -7,10 +7,19 @@ grid.tileHeight = 32
 grid.tileTexture = {}
 grid.tileSheetPath = "tilesheet/tilesheet.png"
 
+function grid.loadExternalImage()
+  local path = love.filesystem.getSourceBaseDirectory().."/"..grid.tileSheetPath
+  local file = io.open(path, "r")
+  local data = file:read("*all")
+  file:close()
+  local fileData = love.filesystem.newFileData(data, "tilesheet")
+  local imgData = love.image.newImageData(fileData)
+  grid.tileSheet = love.graphics.newImage(imgData)
+end
 
 function grid.load()
   
-  grid.tileSheet = love.graphics.newImage(grid.tileSheetPath)
+  grid.loadExternalImage()
   
   local id = 1
   local nbColumn = grid.tileSheet:getWidth() / grid.tileWidth
