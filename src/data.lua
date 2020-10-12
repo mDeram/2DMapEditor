@@ -5,7 +5,7 @@ local function formatString(str)
 end
 
 function data.load()
-  local filename = "data.txt"
+  local filename = "editor.txt"
   local contentFile = {}
   local baseDirectory = love.filesystem.getSourceBaseDirectory()
   local i = 0
