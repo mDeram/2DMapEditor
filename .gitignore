@@ -1,3 +1,2 @@
-tilesheet/
-map/
-data.txt
+tileset/*
+map/*

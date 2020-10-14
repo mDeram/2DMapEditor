@@ -1,0 +1,14 @@
+- Map save path (without file extension) -
+map/map
+- TileSet path (with file extention) -
+tileset/tileset.png
+- TileSet tile width -
+32
+- TileSet tile height -
+32
+- Map width -
+40
+- Map height -
+20
+
+
