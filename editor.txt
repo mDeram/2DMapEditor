@@ -10,5 +10,3 @@ tileset/tileset.png
 40
 - Map height -
 20
-
-
