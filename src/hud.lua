@@ -104,7 +104,7 @@ function hud.drawTile(pX, pY, spacing, pTileWidth)
           love.graphics.rectangle("fill", x-1, y-1, pTileWidth+2, pTileWidth+2)
           love.graphics.setColor(1, 1, 1)
         end
-        love.graphics.draw(grid.tileSheet, grid.tileTexture[(nbColumn*(l-1))+c], x, y, 0, rapport, rapport)
+        love.graphics.draw(grid.tileSet, grid.tileTexture[(nbColumn*(l-1))+c], x, y, 0, rapport, rapport)
       end
     end
   end

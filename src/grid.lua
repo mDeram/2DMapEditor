@@ -5,16 +5,16 @@ grid.height = 50
 grid.tileWidth = 32
 grid.tileHeight = 32
 grid.tileTexture = {}
-grid.tileSheetPath = "tilesheet/tilesheet.png"
+grid.tileSetPath = "tileset/tileset.png"
 
 function grid.loadExternalImage()
-  local path = love.filesystem.getSourceBaseDirectory().."/"..grid.tileSheetPath
+  local path = love.filesystem.getSourceBaseDirectory().."/"..grid.tileSetPath
   local file = io.open(path, "r")
   local data = file:read("*all")
   file:close()
-  local fileData = love.filesystem.newFileData(data, "tilesheet")
+  local fileData = love.filesystem.newFileData(data, "tileset")
   local imgData = love.image.newImageData(fileData)
-  grid.tileSheet = love.graphics.newImage(imgData)
+  grid.tileSet = love.graphics.newImage(imgData)
 end
 
 function grid.load()
@@ -22,8 +22,8 @@ function grid.load()
   grid.loadExternalImage()
   
   local id = 1
-  local nbColumn = grid.tileSheet:getWidth() / grid.tileWidth
-  local nbLine = grid.tileSheet:getHeight() / grid.tileHeight
+  local nbColumn = grid.tileSet:getWidth() / grid.tileWidth
+  local nbLine = grid.tileSet:getHeight() / grid.tileHeight
   local l
   for l = 1, nbLine do
     local c
@@ -33,8 +33,8 @@ function grid.load()
         (l-1)*grid.tileHeight,
         grid.tileWidth,
         grid.tileHeight,
-        grid.tileSheet:getWidth(),
-        grid.tileSheet:getHeight())
+        grid.tileSet:getWidth(),
+        grid.tileSet:getHeight())
       
       id = id + 1
     end
@@ -65,7 +65,7 @@ function grid.draw()
       if grid.map[l] ~= nil and grid.map[l][c] ~= 0 then
         local x = (c-1)*grid.tileWidth
         local y = (l-1)*grid.tileHeight
-        love.graphics.draw(grid.tileSheet, grid.tileTexture[grid.map[l][c]], x, y)
+        love.graphics.draw(grid.tileSet, grid.tileTexture[grid.map[l][c]], x, y)
       end
     end
   end

@@ -16,7 +16,7 @@ function data.load()
   export.path = baseDirectory.."/"..contentFile[2]
   import.path = baseDirectory.."/"..contentFile[2]
   
-  grid.tileSheetPath = contentFile[4]
+  grid.tileSetPath = contentFile[4]
   grid.tileWidth = contentFile[6]
   grid.tileHeight = contentFile[8]
   
