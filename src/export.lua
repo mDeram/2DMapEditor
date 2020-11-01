@@ -4,38 +4,39 @@ export.baseDirectory = love.filesystem.getSourceBaseDirectory()
 export.path = export.baseDirectory.."/map/map"
 
 function export.txt()
-  Folder = io.open(export.path..".txt", "w+")
-  io.input(Folder)
+  local file = io.open(export.path..".txt", "w+")
+  io.input(file)
     local i
     for i = 1, #grid.map-1 do
-      Folder:write(tostring(table.concat(grid.map[i], ","))..",\n")
+      file:write(tostring(table.concat(grid.map[i], ","))..",\n")
     end
-    Folder:write(tostring(table.concat(grid.map[#grid.map], ","))..",")
-  io.close(Folder)
+    file:write(tostring(table.concat(grid.map[#grid.map], ","))..",")
+  io.close(file)
 end
 
 function export.lua()
-  Folder = io.open(export.path..".lua", "w+")
-  io.input(Folder)
-    Folder:write("local map = {\n")
+  local file = io.open(export.path..".lua", "w+")
+  io.input(file)
+    file:write("local map = {\n")
     local i
     for i = 1, #grid.map-1 do
-      Folder:write("  {"..tostring(table.concat(grid.map[i], ", ")).."},\n")
+      file:write("  {"..tostring(table.concat(grid.map[i], ", ")).."},\n")
     end
-    Folder:write("  {"..tostring(table.concat(grid.map[#grid.map], ", ")).."}\n}")
-  io.close(Folder)
+    file:write("  {"..tostring(table.concat(grid.map[#grid.map], ", ")).."}\n}\n")
+    file:write("return map")
+  io.close(file)
 end
 
 function export.json()
-  Folder = io.open(export.path..".json", "w+")
-  io.input(Folder)
-    Folder:write("{\n\"map\" : [["..tostring(table.concat(grid.map[1], ", ")).."],\n")
+  local file = io.open(export.path..".json", "w+")
+  io.input(file)
+    file:write("{\n\"map\" : [["..tostring(table.concat(grid.map[1], ", ")).."],\n")
     local i
     for i = 2, #grid.map-1 do
-      Folder:write("          ["..tostring(table.concat(grid.map[i], ", ")).."],\n")
+      file:write("          ["..tostring(table.concat(grid.map[i], ", ")).."],\n")
     end
-    Folder:write("          ["..tostring(table.concat(grid.map[#grid.map], ", ")).."]]\n}")
-  io.close(Folder)
+    file:write("          ["..tostring(table.concat(grid.map[#grid.map], ", ")).."]]\n}")
+  io.close(file)
 end
 
 
