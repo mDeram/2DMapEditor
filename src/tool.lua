@@ -12,6 +12,10 @@ tool.tilePicker = {}
 tool.camera = {}
 tool.camera.shortcutWasDown = false
 
+local function isMapPosValid()
+  return grid.map[mouse.l] ~= nil and grid.map[mouse.l][mouse.c] ~= nil
+end
+
 function tool.update()
   
   --(5, 50, 10, 30, tool.list)
@@ -42,15 +46,17 @@ function tool.update()
   
   if love.mouse.isDown(mouseTouch2) then -- Color picker
     local value = grid.map[mouse.l][mouse.c]
-    if tool.current ~= "fill" then
-      if value == 0 then
-        tool.current = "erase"
+    if isMapPosValid() then
+      if tool.current ~= "fill" then
+        if value == 0 then
+          tool.current = "erase"
+        else
+          mouse.currentColor = value
+          tool.current = "pen"
+        end
       else
-        mouse.currentColor = value
-        tool.current = "pen"
+        mouse.fillColor = value
       end
-    else
-      mouse.fillColor = value
     end
   end
   
@@ -61,7 +67,7 @@ end
 
 function tool.pen.f()
   if love.mouse.isDown(mouseTouch1) then
-    if grid.map[mouse.l] ~= nil and grid.map[mouse.l][mouse.c] ~= nil then
+    if isMapPosValid() then
       grid.map[mouse.l][mouse.c] = mouse.currentColor
     end
   end
@@ -70,7 +76,7 @@ end
 
 function tool.erase.f()
   if love.mouse.isDown(mouseTouch1) then
-    if grid.map[mouse.l] ~= nil and grid.map[mouse.l][mouse.c] ~= nil then
+    if isMapPosValid() then
       grid.map[mouse.l][mouse.c] = 0
     end
   end
@@ -78,7 +84,7 @@ end
 
 function tool.fill.f()
   if love.mouse.isDown(mouseTouch1) then
-    if grid.map[mouse.l] ~= nil and grid.map[mouse.l][mouse.c] ~= nil and grid.map[mouse.l][mouse.c] ~= mouse.fillColor then
+    if isMapPosValid() and grid.map[mouse.l][mouse.c] ~= mouse.fillColor then
       local remplacer = grid.map[mouse.l][mouse.c]
       grid.map[mouse.l][mouse.c] = -1
       
@@ -143,13 +149,15 @@ end
 
 function tool.tilePicker.f()
   if love.mouse.isDown(mouseTouch1) then
-    local value = grid.map[mouse.l][mouse.c]
-    if value == 0 then
-      tool.current = "erase"
-    else
-      mouse.currentColor = value
-      mouse.fillColor = value
-      tool.current = "pen"
+    if isMapPosValid() then
+      local value = grid.map[mouse.l][mouse.c]
+      if value == 0 then
+        tool.current = "erase"
+      else
+        mouse.currentColor = value
+        mouse.fillColor = value
+        tool.current = "pen"
+      end
     end
   end
 end

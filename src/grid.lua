@@ -24,9 +24,7 @@ function grid.load()
   local id = 1
   local nbColumn = grid.tileSet:getWidth() / grid.tileWidth
   local nbLine = grid.tileSet:getHeight() / grid.tileHeight
-  local l
   for l = 1, nbLine do
-    local c
     for c = 1, nbColumn do
       grid.tileTexture[id] = love.graphics.newQuad(
         (c-1)*grid.tileWidth, 
@@ -45,10 +43,8 @@ function grid.load()
 end
 
 function grid.mapLoad()
-  local l
   for l = 1, grid.height do
     grid.map[l] = {}
-    local c
     for c = 1, grid.width do
       grid.map[l][c] = 0
     end
@@ -58,25 +54,26 @@ end
 
 function grid.draw()
   love.graphics.setColor(1, 1, 1, 1)
-  local l
   for l = 1, grid.height do
-    local c
-    for c = 1, grid.width do
-      if grid.map[l] ~= nil and grid.map[l][c] ~= 0 then
-        local x = (c-1)*grid.tileWidth
-        local y = (l-1)*grid.tileHeight
-        love.graphics.draw(grid.tileSet, grid.tileTexture[grid.map[l][c]], x, y)
+    local gridLine = grid.map[l]
+    if gridLine ~= nil then
+      for c = 1, grid.width do
+        local gridPos = gridLine[c]
+        if gridPos ~= nil and gridPos ~= 0 then
+          local x = (c-1)*grid.tileWidth
+          local y = (l-1)*grid.tileHeight
+          love.graphics.draw(grid.tileSet, grid.tileTexture[gridPos], x, y)
+        end
       end
     end
   end
   
   love.graphics.setColor(180/255, 180/255, 180/255, 100/255)
+  
   if action.grid.value == true then
-    local i
     for i = 1, grid.height+1 do
       love.graphics.line(0, (i-1)*grid.tileHeight, grid.width*grid.tileWidth,(i-1)*grid.tileHeight)
     end
-    local i
     for i = 1, grid.width+1 do
       love.graphics.line((i-1)*grid.tileWidth, 0, (i-1)*grid.tileWidth, grid.height*grid.tileHeight)
     end
