@@ -2,14 +2,9 @@ io.stdout:setvbuf('no')
 love.graphics.setDefaultFilter("nearest")
 if arg[#arg] == "-debug" then require("mobdebug").start() end
 utf8 = require("utf8")
-local major, minor = love.getVersion( )
-if minor == 9 then
-  mouseTouch1 = "l"
-  mouseTouch2 = "r"
-else
-  mouseTouch1 = 1
-  mouseTouch2 = 2
-end
+
+mouseTouch1 = 1
+mouseTouch2 = 2
 
 window = {}
 window.width = 1200
@@ -31,8 +26,6 @@ input = require("input")
 
 
 function love.load()
-  
-  love.window.setMode(1200, 700)
   
   data.load()
   grid.load()
@@ -70,7 +63,7 @@ end
 function love.update(dt)
   
   mouse.update()
-  action.update()
+  action.update(dt)
   tool.update()
   tile.update()
   
@@ -95,7 +88,7 @@ function love.draw()
   hud.drawButtonLeftBar(5, 650, 10, 30, action.importantList)
   hud.drawButtonTopBar(450, 5, 10, 30, export.list, "Export")
   hud.drawButtonTopBar(700, 5, 10, 30, import.list, "Import")
-  hud.drawTile(10, 100, 1, 48)
+  hud.drawTile(10, 100, 1, 32)
   input.draw()
   
 end

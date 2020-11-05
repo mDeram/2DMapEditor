@@ -42,7 +42,7 @@ function input.textinput(t)
   for i = 1, #input.list do
     local curInput = input[input.list[i]]
     if curInput.focus == true then
-      if string.len(curInput.value) < 4 and tonumber(t) ~= nil then
+      if string.len(curInput.value) < 3 and tonumber(t) ~= nil then
         curInput.value = curInput.value..t
       end
     end
@@ -59,8 +59,10 @@ function input.keypressed(key)
     end
     if key == "return" then
       if string.len(curInput.value) > 0 then
-        grid[curInput.toUpdate] = tonumber(curInput.value)
-        toUpdate = true
+        if grid[curInput.toUpdate] ~= tonumber(curInput.value) then
+          grid[curInput.toUpdate] = tonumber(curInput.value)
+          toUpdate = true
+        end
       else
         curInput.value = tostring(grid[curInput.toUpdate])
       end
@@ -97,8 +99,8 @@ function input.draw()
     end
     love.graphics.setFont(Font)
     local name = curInput.toUpdate.." :"
-    love.graphics.print(name, curInput.x-Font:getWidth(name)-4, Font:getHeight(name)/2)
-    love.graphics.print(curInput.value, curInput.x+10, curInput.y+1)
+    love.graphics.print(name, curInput.x - Font:getWidth(name) - 4, Font:getHeight(name)/2)
+    love.graphics.print(curInput.value, curInput.x + 16, curInput.y + 1)
   end
 end
 

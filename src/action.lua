@@ -22,7 +22,7 @@ action.ctrlZ.save = {}
 function action.update(dt)
   action.move.f()
   action.zoom.f()
-  action.ctrlZ.f()
+  action.ctrlZ.f(dt)
 end
 
 function action.mousepressed(touch)
@@ -108,7 +108,7 @@ function action.move.f()
   end
 end
 
-function action.ctrlZ.f()
+function action.ctrlZ.f(dt)
   if #action.ctrlZ.save > 0 then
     local result = false
     local l
@@ -182,14 +182,14 @@ function action.ctrlZ.f()
         end
       end
     end
-    if action.ctrlZ.timer >= 30 then
+    if action.ctrlZ.timer >= 40 then
       action.ctrlZ.timer = 0
       action.ctrlZ.hasUsed = true
     else
-      if action.ctrlZ.timer >= 4 and action.ctrlZ.hasUsed == true then
+      if action.ctrlZ.timer >= 6 and action.ctrlZ.hasUsed == true then
         action.ctrlZ.timer = 0
       else
-        action.ctrlZ.timer = action.ctrlZ.timer+1
+        action.ctrlZ.timer = action.ctrlZ.timer + 60*dt
       end
     end
   else

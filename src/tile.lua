@@ -5,7 +5,7 @@ function tile.update()
     local pX = 10
     local pY = 100
     local spacing = 1
-    local pTileWidth = 48
+    local pTileWidth = 32
     
     local width = hud.rightBar.width-pX*2
     local rapport = pTileWidth/grid.tileWidth
