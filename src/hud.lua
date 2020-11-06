@@ -96,7 +96,8 @@ function hud.drawTile(pX, pY, spacing, pTileWidth)
   for l = 1, nbLine do
     local c
     for c = 1, nbColumn do
-      if grid.tileTexture[(nbColumn*(l-1))+c] ~= nil then
+      local index = (nbColumn*(l-1))+c
+      if grid.tileTexture[index] ~= nil then
         local x = paddingX+(c-1)*(pTileWidth+spacing)
         local y = pY+(l-1)*(pTileWidth+spacing)
         if mouse.currentColor == (nbColumn*(l-1))+c then
@@ -104,7 +105,7 @@ function hud.drawTile(pX, pY, spacing, pTileWidth)
           love.graphics.rectangle("fill", x-1, y-1, pTileWidth+2, pTileWidth+2)
           love.graphics.setColor(1, 1, 1)
         end
-        love.graphics.draw(grid.tileSet, grid.tileTexture[(nbColumn*(l-1))+c], x, y, 0, rapport, rapport)
+        love.graphics.draw(grid.tileSet, grid.tileTexture[index], x, y, 0, rapport, rapport)
       end
     end
   end

@@ -20,7 +20,7 @@ action.ctrlZ.limit = 200
 action.ctrlZ.save = {}
 
 function action.update(dt)
-  action.move.f()
+  action.move.f(dt)
   action.zoom.f()
   action.ctrlZ.f(dt)
 end
@@ -92,8 +92,8 @@ function action.zoom.wheelmoved(y)
   end
 end
 
-function action.move.f()
-  local moveSpeed = 10
+function action.move.f(dt)
+  local moveSpeed = 10*60*dt
   if love.keyboard.isDown("left") then
     camera:move(-moveSpeed*camera.scaleX, 0)
   end
@@ -173,8 +173,9 @@ function action.ctrlZ.f(dt)
         local save = action.ctrlZ.save[#action.ctrlZ.save]
         grid.height = save.height
         grid.width = save.width
+        grid.mapLoad()
         local l
-        for l = 1, grid.height do --TOFIX for limit must be a number
+        for l = 1, grid.height do
           local c
           for c = 1, grid.width do
             grid.map[l][c] = save[l][c]

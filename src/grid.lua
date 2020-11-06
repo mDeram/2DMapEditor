@@ -43,6 +43,7 @@ function grid.load()
 end
 
 function grid.mapLoad()
+  grid.map = {}
   for l = 1, grid.height do
     grid.map[l] = {}
     for c = 1, grid.width do
