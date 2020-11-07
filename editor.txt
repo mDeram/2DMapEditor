@@ -3,9 +3,9 @@ map/map
 - TileSet path (with file extention) -
 tileset/tileset.png
 - TileSet tile width (px) -
-32
+16
 - TileSet tile height (px) -
-32
+16
 - Map width -
 40
 - Map height -

@@ -9,7 +9,7 @@ grid.tileSetPath = "tileset/tileset.png"
 
 function grid.loadExternalImage()
   local path = love.filesystem.getSourceBaseDirectory().."/"..grid.tileSetPath
-  local file = io.open(path, "r")
+  local file = io.open(path, "rb")
   local data = file:read("*all")
   file:close()
   local fileData = love.filesystem.newFileData(data, "tileset")
