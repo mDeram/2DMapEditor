@@ -26,30 +26,34 @@ function action.update(dt)
 end
 
 function action.mousepressed(touch)
-  if mouse.zone == "leftBar" then
-    local spacing = 10
-    local pX = 5
-    local pY = 400
-    local height = 30
-    local i
-    for i = 1, #action.list do
-      local y = pY+(i-1)*spacing+(i-1)*height
-      if mouse.collide(pX, y, height, height) then
-        if love.mouse.isDown(mouseTouch1) then
-          if action.list[i] == "grid" then
-            if action.grid.state == true then action.grid.state = false else action.grid.state = true end
-          elseif action.list[i] == "resetPos" then
-            action.resetPos.f()
-          end
-        end
+  --This code hurts to look at :)
+  if mouse.zone ~= "leftBar" then return end
+
+  local spacing = 10
+  local pX = 5
+  local pY = 400
+  local height = 30
+  local i
+  for i = 1, #action.list do
+    local y = pY+(i-1)*spacing+(i-1)*height
+    if mouse.collide(pX, y, height, height) then
+      if action.list[i] == "grid" then
+        if action.grid.state then action.grid.state = false end
+      elseif action.list[i] == "resetPos" then
+        action.resetPos.f()
       end
     end
-    local y = 650
-    if mouse.collide(pX, y, height, height) then
-      grid.mapLoad()
-    end
   end
-  
+
+  local y = 650
+  if mouse.collide(pX, y, height, height) then
+    local answer = love.window.showMessageBox(
+      "Warning",
+      "Are you sure you want to clear this map?\n(You will still be able to ctrl+z afterwards)",
+      { "Yes", "No" }
+    )
+    if answer == 1 then grid.mapLoad() end
+  end
 end
 
 function action.draw()
@@ -136,7 +140,7 @@ function action.ctrlZ.f(dt)
         save[l] = {}
         local c
         for c = 1, grid.width do
-          save[l][c] = grid.map[l][c] 
+          save[l][c] = grid.map[l][c]
         end
       end
     end
@@ -150,11 +154,11 @@ function action.ctrlZ.f(dt)
       save[l] = {}
       local c
       for c = 1, grid.width do
-        save[l][c] = grid.map[l][c] 
+        save[l][c] = grid.map[l][c]
       end
     end
   end
-  
+
   --check if ctrl is pressed before z
   if (love.keyboard.isDown("lctrl") and not love.keyboard.isDown("z")) or (love.keyboard.isDown("lctrl") and action.ctrlZ.ctrlPressedBeforeZ) then
     action.ctrlZ.ctrlPressedBeforeZ = true
@@ -165,7 +169,7 @@ function action.ctrlZ.f(dt)
     action.ctrlZ.touch1 = false
     action.ctrlZ.touch2 = false
   end
-  
+
   if action.ctrlZ.touch1 and action.ctrlZ.touch2 then
     if action.ctrlZ.timer == 0 then
       if #action.ctrlZ.save > 1 then
