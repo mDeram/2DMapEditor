@@ -10,6 +10,14 @@ grid.tileSetPath = "tileset/tileset.png"
 function grid.loadExternalImage()
   local path = love.filesystem.getSourceBaseDirectory().."/"..grid.tileSetPath
   local file = io.open(path, "rb")
+  if file == nil then
+    love.window.showMessageBox(
+      "A tileset is required for the editor to run",
+      "Make sure the path to the tileset in the config file 'editor.txt' is valid",
+      "error"
+    )
+    love.event.quit()
+  end
   local data = file:read("*all")
   file:close()
   local fileData = love.filesystem.newFileData(data, "tileset")
@@ -18,28 +26,28 @@ function grid.loadExternalImage()
 end
 
 function grid.load()
-  
+
   grid.loadExternalImage()
-  
+
   local id = 1
   local nbColumn = grid.tileSet:getWidth() / grid.tileWidth
   local nbLine = grid.tileSet:getHeight() / grid.tileHeight
   for l = 1, nbLine do
     for c = 1, nbColumn do
       grid.tileTexture[id] = love.graphics.newQuad(
-        (c-1)*grid.tileWidth, 
+        (c-1)*grid.tileWidth,
         (l-1)*grid.tileHeight,
         grid.tileWidth,
         grid.tileHeight,
         grid.tileSet:getWidth(),
         grid.tileSet:getHeight())
-      
+
       id = id + 1
     end
   end
-  
+
   grid.mapLoad()
-  
+
 end
 
 function grid.mapLoad()
@@ -68,9 +76,9 @@ function grid.draw()
       end
     end
   end
-  
+
   love.graphics.setColor(180/255, 180/255, 180/255, 100/255)
-  
+
   if action.grid.value == true then
     for i = 1, grid.height+1 do
       love.graphics.line(0, (i-1)*grid.tileHeight, grid.width*grid.tileWidth,(i-1)*grid.tileHeight)
