@@ -113,6 +113,13 @@ Create/find a parser for the file format you want your map to be in.
 
 ---
 
+## Building
+
+Builds are done using the "Release" script that itself uses [boon](https://github.com/camchenry/boon).
+Running `./Release` will create a folder named "release", using `./Release -z` will zip the folders contained in the release folder.
+
+---
+
 ## Project Status
 
 The project is currently finished, however feel free to open an issue if you encounter one. No features will be added.

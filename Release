@@ -1,0 +1,54 @@
+#!/bin/bash
+
+ZIP=$1
+
+COLOR_STOP="\033[0m"
+COLOR_INFO="\033[1;33m"
+
+DIR="$PWD"
+
+echo_info() {
+    echo -e "$COLOR_INFO--- $1 ---$COLOR_STOP"
+}
+
+
+
+echo_info "Building"
+boon build src/
+rm -r release/
+mv src/release/ release/
+
+
+
+echo_info "Setting Up Directories"
+cd release
+# $_ is the last argument given to the previous command
+mkdir 2d_map_editor_linux; mv 2d_map_editor.love $_
+mkdir 2d_map_editor_macos; mv 2d_map_editor.app $_
+
+unzip -q 2d_map_editor-win32.zip -d 2d_map_editor_win32
+unzip -q 2d_map_editor-win64.zip -d 2d_map_editor_win64
+rm -r 2d_map_editor-win*
+
+
+
+echo_info "Removing Files"
+find . -name "2d_map_editor_win*" | xargs -n 1 -i rm {}/{changes.txt,license.txt,readme.txt}
+
+
+
+echo_info "Adding Files"
+ls | xargs -n 1 cp -r ../LICENSE ../README.md ../editor.txt ../img
+ls | xargs -n 1 -i mkdir {}/{map,tileset}
+
+
+
+if [ "$1" = "-z" ]; then
+    echo_info "Zipping Files"
+    ls | xargs -n 1 -i zip -qrm {}.zip {}
+fi
+
+
+
+echo_info "Done"
+cd "$DIR"
