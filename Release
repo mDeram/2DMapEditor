@@ -38,8 +38,9 @@ find . -name "2d_map_editor_win*" | xargs -n 1 -i rm {}/{changes.txt,license.txt
 
 
 echo_info "Adding Files"
-ls | xargs -n 1 cp -r ../LICENSE ../README.md ../editor.txt ../img
 ls | xargs -n 1 -i mkdir {}/{map,tileset}
+ls | xargs -n 1 cp -r ../LICENSE ../README.md ../editor.txt ../img
+ls | xargs -n 1 -i cp ../tileset/release_tileset.png {}/tileset/tileset.png
 
 
 
