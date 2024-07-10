@@ -1,12 +1,12 @@
 # 2DMapEditor
 
-A minimalist 2D map editor.
+Single-layer 2D map editor using a .png tileset.
 
-Create single layer 2D maps from a .png tileset.
+It features map resizing, drawing, erasing, filling...
 
-Export maps to txt, json, lua format.
+Export maps to txt, json or lua format.
 
-Made with [love2d](https://love2d.org/).
+Built with [love2d](https://love2d.org/) it runs on Windows, macOS and Linux.
 
 ## Preview
 
